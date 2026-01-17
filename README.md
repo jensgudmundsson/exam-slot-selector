@@ -95,7 +95,3 @@ window.SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
 2. In GitHub, go to **Settings → Pages**.
 3. Select **Deploy from a branch** and choose the branch + root folder.
 4. Save. GitHub Pages will provide a public URL.
-
-## Admin password (testing)
-
-The Admin tab prompts for a password (`1518`). This is **client-side only** and not secure. It is intended for testing only.
