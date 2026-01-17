@@ -1,0 +1,303 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+  background: #f5f6fb;
+  color: #1c1f2a;
+}
+
+.site-header,
+.site-footer {
+  text-align: center;
+  padding: 1.75rem 1rem;
+}
+
+.subtitle {
+  margin: 0.35rem 0 0;
+  color: #4c5367;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto 3rem;
+  padding: 0 1rem 2rem;
+}
+
+.tabs {
+  display: inline-flex;
+  gap: 0.5rem;
+  background: #ffffff;
+  padding: 0.4rem;
+  border-radius: 999px;
+  box-shadow: 0 10px 24px rgba(22, 25, 40, 0.08);
+}
+
+.tab-button {
+  border: none;
+  background: transparent;
+  padding: 0.5rem 1.5rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #4c5367;
+}
+
+.tab-button.active {
+  background: #2f63ff;
+  color: #ffffff;
+}
+
+.tab-panel {
+  margin-top: 1.5rem;
+  display: none;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+.panel-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 12px 30px rgba(22, 25, 40, 0.08);
+}
+
+.card-header h2 {
+  margin-bottom: 0.35rem;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0 0 0.75rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+}
+
+.field input,
+.field select,
+.field textarea {
+  padding: 0.55rem 0.75rem;
+  border: 1px solid #d8dbe7;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-family: inherit;
+}
+
+.input-locked {
+  background: #f1f2f7;
+  color: #6a6f82;
+}
+
+.question-block {
+  margin-bottom: 1rem;
+}
+
+.inline-fields {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  align-items: end;
+}
+
+.inline-fields .field {
+  margin-bottom: 0;
+}
+
+.inline-fields button {
+  align-self: end;
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+button {
+  border: none;
+  border-radius: 10px;
+  padding: 0.6rem 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.primary {
+  background: #2f63ff;
+  color: #ffffff;
+}
+
+.secondary {
+  background: #e8edff;
+  color: #2f63ff;
+}
+
+.success {
+  background: #2f9e44;
+  color: #ffffff;
+}
+
+.ghost {
+  background: #f1f2f7;
+  color: #4c5367;
+}
+
+.helper-text {
+  margin: 0 0 1rem;
+  color: #4c5367;
+  font-size: 0.9rem;
+}
+
+.status-text {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  color: #2f63ff;
+}
+
+.section-block {
+  margin-bottom: 1.5rem;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0;
+}
+
+.tag-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: #f4f5fb;
+  border: 1px solid #d8dbe7;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+}
+
+.tag-item button {
+  background: transparent;
+  color: #7a8095;
+  padding: 0;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.sortable-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  min-height: 120px;
+}
+
+.sortable-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.6rem 0.75rem;
+  background: #f8f9ff;
+  border: 1px solid #d8dbe7;
+  border-radius: 12px;
+}
+
+.sortable-content {
+  flex: 1;
+}
+
+.sortable-actions {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.drag-handle {
+  font-size: 1rem;
+  color: #7a8095;
+  margin-right: 0.5rem;
+}
+
+.mobile-controls button,
+.remove-button {
+  background: #ffffff;
+  border: 1px solid #d8dbe7;
+  color: #4c5367;
+  padding: 0.2rem 0.4rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+}
+
+.remove-button {
+  color: #d3455b;
+  border-color: #f1c7ce;
+}
+
+.hidden {
+  display: none;
+}
+
+.allocation-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.allocation-table th,
+.allocation-table td {
+  padding: 0.6rem 0.5rem;
+  border-bottom: 1px solid #e0e3ef;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.ordered-list {
+  padding-left: 1.25rem;
+  margin: 0.5rem 0 1rem;
+  color: #4c5367;
+}
+
+@media (max-width: 720px) {
+  .tabs {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .sortable-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .sortable-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

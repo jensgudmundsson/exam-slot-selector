@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exam Slot Selector</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <h1>Exam Slot Selector</h1>
+      <p class="subtitle">Collect preferences and allocate slots fairly.</p>
+    </header>
+
+    <main class="container">
+      <div class="tabs" role="tablist">
+        <button class="tab-button active" role="tab" aria-selected="true" data-tab="user">
+          User
+        </button>
+        <button class="tab-button" role="tab" aria-selected="false" data-tab="admin">
+          Admin
+        </button>
+      </div>
+
+      <section id="user" class="tab-panel active" role="tabpanel">
+        <div class="panel-grid">
+          <div class="card">
+            <h3>KU user ID:</h3>
+            <label class="field">
+              <input id="userIdInput" placeholder="abc123" />
+            </label>
+
+            <div class="question-block">
+              <h3>What days are you avaliable?</h3>
+              <label class="field">
+                <select id="availabilitySelect"></select>
+              </label>
+            </div>
+
+            <div class="question-block hidden" id="preferredDayField">
+              <h3>If relevant, which day do you prefer?</h3>
+              <label class="field">
+                <select id="preferredDaySelect"></select>
+              </label>
+            </div>
+
+            <div class="question-block">
+              <h3>If relevant, what time of the day do you prefer?</h3>
+              <label class="field">
+                <select id="timePreferenceSelect">
+                  <option value="" selected disabled>Select one</option>
+                  <option value="before">Before lunch</option>
+                  <option value="after">After lunch</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="button-row">
+              <button id="generateListButton" class="primary">Generate preference list</button>
+              <button id="resetListButton" class="ghost">Reset list</button>
+            </div>
+            <div class="button-row hidden" id="savePreferencesRow">
+              <button id="savePreferencesButton" class="primary">Save reference?</button>
+            </div>
+            <p id="saveStatus" class="status-text hidden"></p>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h2>Ranked preference list</h2>
+              <p class="helper-text">
+                Drag to reorder. On mobile, use the arrow buttons. Once finished, click "Save preferences?". The button should turn green and say "Preference saved!".
+              </p>
+            </div>
+            <ul id="preferenceList" class="sortable-list" aria-live="polite"></ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="admin" class="tab-panel" role="tabpanel">
+        <div class="panel-grid">
+          <div class="card">
+            <h2>Admin setup</h2>
+
+            <div class="section-block">
+              <h3>Dates</h3>
+              <div class="inline-fields">
+                <label class="field">
+                  <span>Date</span>
+                  <input id="dateInput" type="date" />
+                </label>
+                <button id="addDateButton" class="secondary">Add</button>
+              </div>
+              <p class="helper-text">Day is computed from the date.</p>
+              <ul id="dateList" class="tag-list"></ul>
+            </div>
+
+            <div class="section-block">
+              <h3>Time slots</h3>
+              <div class="inline-fields">
+                <label class="field">
+                  <span>Time range</span>
+                  <input id="slotTimeInput" placeholder="e.g. 09:00-12:30" />
+                </label>
+                <button id="addSlotButton" class="secondary">Add</button>
+              </div>
+              <p class="helper-text">
+                Range is split into 20 min slots. After 12:30 is after lunch.
+              </p>
+              <ul id="slotList" class="tag-list"></ul>
+            </div>
+
+            <div class="section-block">
+              <h3>Valid user IDs</h3>
+              <div class="inline-fields">
+                <label class="field">
+                  <span>User IDs</span>
+                  <textarea
+                    id="userIdAdminInput"
+                    rows="3"
+                    placeholder="e.g. s12345, s12346, s12347"
+                  ></textarea>
+                </label>
+                <button id="addUserButton" class="secondary">Add</button>
+              </div>
+              <ul id="userList" class="tag-list"></ul>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>Allocation</h2>
+            <p class="helper-text">
+              Random serial dictatorship: randomly order users and assign their top
+              remaining slot.
+            </p>
+            <div class="button-row">
+              <button id="runAllocationButton" class="primary">Run allocation</button>
+              <button id="clearAllocationButton" class="ghost">Clear allocation</button>
+            </div>
+            <div class="allocation-block">
+              <h3>Random order</h3>
+              <ol id="randomOrderList" class="ordered-list"></ol>
+            </div>
+            <div class="allocation-block">
+              <h3>Results</h3>
+              <div class="table-wrapper">
+                <table class="allocation-table">
+                  <thead>
+                    <tr>
+                      <th>User ID</th>
+                      <th>Assigned slot</th>
+                    </tr>
+                  </thead>
+                  <tbody id="allocationResults"></tbody>
+                </table>
+              </div>
+            </div>
+            <p id="allocationStatus" class="status-text"></p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Preferences and allocations are stored locally in this browser.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
