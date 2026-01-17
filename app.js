@@ -471,11 +471,11 @@ const renderPreferenceList = () => {
 
 const updateSaveButton = () => {
   if (hasSavedPreferences) {
-    savePreferencesButton.textContent = "Preference saved!";
+    savePreferencesButton.textContent = "Preferences saved!";
     savePreferencesButton.classList.remove("primary");
     savePreferencesButton.classList.add("success");
   } else {
-    savePreferencesButton.textContent = "Save reference?";
+    savePreferencesButton.textContent = "Save preferences?";
     savePreferencesButton.classList.remove("success");
     savePreferencesButton.classList.add("primary");
   }
@@ -489,6 +489,12 @@ const setStatus = (message) => {
     saveStatus.textContent = "";
     saveStatus.classList.add("hidden");
   }
+};
+
+const formatSupabaseError = (error) => {
+  if (!error) return "Unknown error";
+  const code = error.code ? ` (${error.code})` : "";
+  return `${error.message || "Supabase error"}${code}`;
 };
 
 const unlockUserIdField = () => {
@@ -679,15 +685,24 @@ const resetPreferenceList = () => {
 
 const saveUserPreferencesToSupabase = async (userId, slotIds) => {
   ensureSupabase();
-  await supabaseClient.from("preferences").delete().eq("user_id", userId);
-  const rows = slotIds.map((slotId, index) => ({
+  const uniqueSlotIds = [...new Set(slotIds)];
+  const { error: deleteError } = await supabaseClient
+    .from("preferences")
+    .delete()
+    .eq("user_id", userId);
+  if (deleteError) {
+    throw new Error(`Delete failed: ${formatSupabaseError(deleteError)}`);
+  }
+  const rows = uniqueSlotIds.map((slotId, index) => ({
     user_id: userId,
     slot_id: slotId,
     rank: index + 1,
   }));
   if (rows.length) {
     const { error } = await supabaseClient.from("preferences").insert(rows);
-    if (error) throw error;
+    if (error) {
+      throw new Error(`Insert failed: ${formatSupabaseError(error)}`);
+    }
   }
 };
 
@@ -718,7 +733,7 @@ const savePreferences = async () => {
     hasSavedPreferences = true;
     updateSaveButton();
   } catch (error) {
-    setStatus("Failed to save preferences. Please try again.");
+    setStatus(`Failed to save preferences. ${error.message || ""}`.trim());
   }
 };
 
