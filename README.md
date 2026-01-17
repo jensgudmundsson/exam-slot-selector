@@ -29,7 +29,7 @@ create table if not exists users (
 
 create table if not exists preferences (
   user_id text not null references users (id) on delete cascade,
-  slot_id text not null references slots (id) on delete cascade,
+  slot_id text not null,
   rank integer not null,
   primary key (user_id, slot_id)
 );
@@ -40,12 +40,21 @@ create unique index if not exists preferences_user_rank_idx
 create table if not exists allocation (
   run_id bigint not null,
   user_id text not null references users (id) on delete cascade,
-  slot_id text references slots (id) on delete set null,
+  slot_id text,
   order_index integer not null
 );
 
 create index if not exists allocation_run_idx
   on allocation (run_id);
+```
+
+### If you already ran the old schema
+The app stores slot instances as `dateId-slotId`, so `preferences.slot_id` is not a foreign key to `slots.id`.
+Run this migration once to drop the old foreign keys:
+
+```sql
+alter table preferences drop constraint if exists preferences_slot_id_fkey;
+alter table allocation drop constraint if exists allocation_slot_id_fkey;
 ```
 
 ### RLS (testing only)
